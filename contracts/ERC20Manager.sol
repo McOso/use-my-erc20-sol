@@ -40,15 +40,7 @@ contract ERC20Manager is Delegatable, Ownable {
     bytes32 s
   ) external {
     require(msg.sender == address(this), "ERC20Manager:invalid-sender");
-    IERC20Permit(_token).permit(
-      _from,
-      address(this),
-      _amount,
-      _deadline,
-      v,
-      r,
-      s
-    );
+    IERC20Permit(_token).permit(_from, address(this), _amount, _deadline, v, r, s);
   }
 
   function transferProxy(
@@ -63,7 +55,13 @@ contract ERC20Manager is Delegatable, Ownable {
   /* ===================================================================================== */
   /* Internal Functions                                                                    */
   /* ===================================================================================== */
-  function _msgSender() internal view virtual override(DelegatableCore, Context) returns (address sender) {
+  function _msgSender()
+    internal
+    view
+    virtual
+    override(DelegatableCore, Context)
+    returns (address sender)
+  {
     if (msg.sender == address(this)) {
       bytes memory array = msg.data;
       uint256 index = msg.data.length;

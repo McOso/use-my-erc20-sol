@@ -11,7 +11,13 @@ import { generateDelegation } from './utils';
 
 const { getSigners } = ethers;
 
-async function getPermitSignature(signer: any, token: any, spender: any, value: any, deadline: any) {
+async function getPermitSignature(
+  signer: any,
+  token: any,
+  spender: any,
+  value: any,
+  deadline: any,
+) {
   const [nonce, name, version, chainId] = await Promise.all([
     token.nonces(signer.address),
     token.name(),
@@ -83,9 +89,7 @@ describe('ERC20Manager', () => {
   before(async () => {
     [signer0, signer1] = await getSigners();
     [wallet0, wallet1] = getPrivateKeys(signer0.provider as unknown as Provider); //
-    erc20ManagerFactory = await ethers.getContractFactory(
-      'ERC20Manager',
-    );
+    erc20ManagerFactory = await ethers.getContractFactory('ERC20Manager');
     erc20PermitTokenFactory = await ethers.getContractFactory('TokenPermit');
     erc20FromAllowanceEnforcerFactory = await ethers.getContractFactory(
       'ERC20FromAllowanceEnforcer',
@@ -102,14 +106,10 @@ describe('ERC20Manager', () => {
     erc20PermitToken = await erc20PermitTokenFactory.connect(wallet0).deploy();
     await erc20PermitToken.deployed();
 
-    erc20ManagerContract = await erc20ManagerFactory
-      .connect(wallet0)
-      .deploy();
+    erc20ManagerContract = await erc20ManagerFactory.connect(wallet0).deploy();
     await erc20ManagerContract.deployed();
 
-    erc20FromAllowanceEnforcer = await erc20FromAllowanceEnforcerFactory
-      .connect(wallet0)
-      .deploy();
+    erc20FromAllowanceEnforcer = await erc20FromAllowanceEnforcerFactory.connect(wallet0).deploy();
 
     CONTRACT_INFO = {
       chainId: erc20ManagerContract.deployTransaction.chainId,
@@ -120,9 +120,9 @@ describe('ERC20Manager', () => {
   });
 
   it('should SUCCEED to approveSubscriptiopn', async () => {
-    expect(await erc20PermitToken.allowance(wallet0.address, erc20ManagerContract.address)).to.equal(
-      0,
-    );
+    expect(
+      await erc20PermitToken.allowance(wallet0.address, erc20ManagerContract.address),
+    ).to.equal(0);
     const deadline = ethers.constants.MaxUint256;
     let totalApprovedAmount = 12;
     const { v, r, s } = await getPermitSignature(
@@ -168,17 +168,17 @@ describe('ERC20Manager', () => {
         invocations: invocation.invocations,
       },
     ]);
-    expect(await erc20PermitToken.allowance(wallet0.address, erc20ManagerContract.address)).to.equal(
-      totalApprovedAmount,
-    );
+    expect(
+      await erc20PermitToken.allowance(wallet0.address, erc20ManagerContract.address),
+    ).to.equal(totalApprovedAmount);
   });
 
   it('should SUCCEED to INVOKE transferProxy', async () => {
-    expect(await erc20PermitToken.allowance(wallet0.address, erc20ManagerContract.address)).to.equal(
-      0,
-    );
+    expect(
+      await erc20PermitToken.allowance(wallet0.address, erc20ManagerContract.address),
+    ).to.equal(0);
     const deadline = ethers.constants.MaxUint256;
-    const totalApprovedAmount = ethers.utils.parseEther("0.5");
+    const totalApprovedAmount = ethers.utils.parseEther('0.5');
     const { v, r, s } = await getPermitSignature(
       wallet0,
       erc20PermitToken,
@@ -187,17 +187,20 @@ describe('ERC20Manager', () => {
       deadline,
     );
 
-    const inputTerms = ethers.utils.hexZeroPad(
-      ethers.utils.parseEther("0.5").toHexString(),
-      32
-    );
+    const inputTerms = ethers.utils.hexZeroPad(ethers.utils.parseEther('0.5').toHexString(), 32);
 
-    const _delegation = generateDelegation(CONTRACT_NAME, erc20ManagerContract, pk0, wallet1.address, [
-      {
-        enforcer: erc20FromAllowanceEnforcer.address,
-        terms: inputTerms,
-      },
-    ]);
+    const _delegation = generateDelegation(
+      CONTRACT_NAME,
+      erc20ManagerContract,
+      pk0,
+      wallet1.address,
+      [
+        {
+          enforcer: erc20FromAllowanceEnforcer.address,
+          terms: inputTerms,
+        },
+      ],
+    );
 
     const INVOCATION_MESSAGE = {
       replayProtection: {
@@ -228,13 +231,17 @@ describe('ERC20Manager', () => {
           transaction: {
             to: erc20ManagerContract.address,
             gasLimit: '210000000000000000',
-            data: (await erc20ManagerContract.populateTransaction.transferProxy(erc20PermitToken.address, wallet1.address, totalApprovedAmount)).data,
+            data: (
+              await erc20ManagerContract.populateTransaction.transferProxy(
+                erc20PermitToken.address,
+                wallet1.address,
+                totalApprovedAmount,
+              )
+            ).data,
           },
         },
       ],
     };
-
-    
 
     const invocation = delegatableUtils.signInvocation(INVOCATION_MESSAGE, pk1);
 
@@ -248,11 +255,11 @@ describe('ERC20Manager', () => {
   });
 
   it('should FAIL to INVOKE transferProxy with greater than approved amount', async () => {
-    expect(await erc20PermitToken.allowance(wallet0.address, erc20ManagerContract.address)).to.equal(
-      0,
-    );
+    expect(
+      await erc20PermitToken.allowance(wallet0.address, erc20ManagerContract.address),
+    ).to.equal(0);
     const deadline = ethers.constants.MaxUint256;
-    const totalApprovedAmount = ethers.utils.parseEther("0.5");
+    const totalApprovedAmount = ethers.utils.parseEther('0.5');
     const { v, r, s } = await getPermitSignature(
       wallet0,
       erc20PermitToken,
@@ -261,17 +268,20 @@ describe('ERC20Manager', () => {
       deadline,
     );
 
-    const inputTerms = ethers.utils.hexZeroPad(
-      ethers.utils.parseEther("0.5").toHexString(),
-      32
-    );
+    const inputTerms = ethers.utils.hexZeroPad(ethers.utils.parseEther('0.5').toHexString(), 32);
 
-    const _delegation = generateDelegation(CONTRACT_NAME, erc20ManagerContract, pk0, wallet1.address, [
-      {
-        enforcer: erc20FromAllowanceEnforcer.address,
-        terms: inputTerms,
-      },
-    ]);
+    const _delegation = generateDelegation(
+      CONTRACT_NAME,
+      erc20ManagerContract,
+      pk0,
+      wallet1.address,
+      [
+        {
+          enforcer: erc20FromAllowanceEnforcer.address,
+          terms: inputTerms,
+        },
+      ],
+    );
 
     const INVOCATION_MESSAGE = {
       replayProtection: {
@@ -302,7 +312,13 @@ describe('ERC20Manager', () => {
           transaction: {
             to: erc20ManagerContract.address,
             gasLimit: '210000000000000000',
-            data: (await erc20ManagerContract.populateTransaction.transferProxy(erc20PermitToken.address, wallet1.address, ethers.utils.parseEther("0.6"))).data,
+            data: (
+              await erc20ManagerContract.populateTransaction.transferProxy(
+                erc20PermitToken.address,
+                wallet1.address,
+                ethers.utils.parseEther('0.6'),
+              )
+            ).data,
           },
         },
       ],

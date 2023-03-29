@@ -1,7 +1,6 @@
 // @ts-ignore
 import { generateUtil } from "eth-delegatable-utils";
-const BASE_AUTH =
-  "0x0000000000000000000000000000000000000000000000000000000000000000";
+const BASE_AUTH = "0x0000000000000000000000000000000000000000000000000000000000000000";
 
 export function generateDelegation(
   name: any,
