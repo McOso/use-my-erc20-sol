@@ -621,7 +621,7 @@
     "@jridgewell/resolve-uri" "^3.0.3"
     "@jridgewell/sourcemap-codec" "^1.4.10"
 
-"@metamask/eth-sig-util@^4.0.0":
+"@metamask/eth-sig-util@^4.0.0", "@metamask/eth-sig-util@^4.0.1":
   version "4.0.1"
   resolved "https://registry.yarnpkg.com/@metamask/eth-sig-util/-/eth-sig-util-4.0.1.tgz#3ad61f6ea9ad73ba5b19db780d40d9aae5157088"
   integrity sha512-tghyZKLHZjcdlDqCA3gNZmLeR0XvOE9U1qoQO9ohyAZT6Pya+H9vkBPcsyXytmYLNgVoin7CKCmweo/R43V+tQ==
@@ -3759,6 +3759,13 @@ eth-block-tracker@^3.0.0:
     json-rpc-engine "^3.6.0"
     pify "^2.3.0"
     tape "^4.6.3"
+
+eth-delegatable-utils@^1.1.0:
+  version "1.5.2"
+  resolved "https://registry.yarnpkg.com/eth-delegatable-utils/-/eth-delegatable-utils-1.5.2.tgz#62b44914ad1db344ccc0f225a471297625173d5f"
+  integrity sha512-JC9HOabfKhj+SU0ggSqqhEnTpngOoQoOELM6JICOHuvIiPAhSNUKwCCa5GD0Bo5ce2nWRKlDKOqYpFc7sX4Ldw==
+  dependencies:
+    "@metamask/eth-sig-util" "^4.0.1"
 
 eth-ens-namehash@2.0.8, eth-ens-namehash@^2.0.8:
   version "2.0.8"
