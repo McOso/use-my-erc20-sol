@@ -76,7 +76,7 @@ if (MAINNET_PK_DEPLOYER && ETHEREUM_MAINNET_RPC_URL) {
 }
 
 if (TESTNET_PK_DEPLOYER && ETHEREUM_GOERLI_RPC_URL) {
-  networks.ethereumTestnet = {
+  networks.goerli = {
     url: ETHEREUM_GOERLI_RPC_URL,
     accounts: [TESTNET_PK_DEPLOYER],
   };

@@ -5,10 +5,10 @@ export default async function deploy(hardhat: HardhatRuntimeEnvironment) {
 
   const { deploy } = deployments;
   const { deployer } = await getNamedAccounts();
-  await deploy("TurboERC721", {
-    contract: "MintableERC721",
+  await deploy("ERC20Manager", {
+    contract: "ERC20Manager",
     from: deployer,
-    args: ["Turbo ERC721", "TRBO"],
+    args: [],
     skipIfAlreadyDeployed: false,
     log: true,
   });

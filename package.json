@@ -1,9 +1,12 @@
 {
-  "name": "@turbo-lab/template-hardhat-sol",
+  "name": "use-my-erc20",
   "version": "0.0.0-beta.0",
-  "description": "Smart Contract Boilerplate using Hardhat",
+  "description": "Delegatable erc20 implementation",
   "main": "index.js",
   "license": "MIT",
+  "author": {
+    "name": "McOso"
+  },
   "scripts": {
     "build": "hardhat --show-stack-traces --max-memory 8192 compile",
     "clean": "rm -rf cache/ artifacts/",
@@ -13,17 +16,18 @@
     "chain:fork": "FORK_ENABLED=true hardhat node --network hardhat",
     "deploy": "hardhat deploy --write true",
     "deploy:mainnet": "hardhat deploy --write true --network mainnet",
-    "deploy:testnet": "hardhat deploy --write true --network testnet",
+    "deploy:goerli": "hardhat deploy --write true --network goerli",
     "deploy:polygon:mainnet": "hardhat deploy --write true --network polygonMainnet",
     "deploy:polygon:testnet": "hardhat deploy --write true --network polygonTestnet",
     "deploy:optimism:mainnet": "hardhat deploy --write true --network optimismMainnet",
     "deploy:optimism:testnet": "hardhat deploy --write true --network optimismTestnet",
-    "verify": "hardhat etherscan-verify --license GPL-3.0 --solc-input --network",
+    "verify": "hardhat etherscan-verify --license MIT --solc-input --network",
     "format": "prettier --config .prettierrc --write \"**/*.{ts,js}\" \"contracts/**/*.sol\"",
     "hint": "solhint \"contracts/**/*.sol\"",
     "remove-logs": "hardhat remove-logs",
     "test": "yarn clean && HIDE_DEPLOY_LOG=true OPTIMIZER_DISABLED=true hardhat test",
     "test:fast": "HIDE_DEPLOY_LOG=true OPTIMIZER_DISABLED=true hardhat test",
+    "test:plain": "hardhat test",
     "typechain": "typechain --target=ethers-v5 \"./abis/*.json\" --out-dir \"./types\"",
     "prepack": "yarn compile",
     "prepare": "husky install"
@@ -39,7 +43,7 @@
     "@types/chai": "4.3.0",
     "@types/debug": "4.1.7",
     "@types/mocha": "9.1.0",
-    "@types/node": "^18.0.0",
+    "@types/node": "^18.15.11",
     "base64-sol": "1.1.0",
     "chai": "4.3.6",
     "chalk": "5.0.0",
@@ -76,6 +80,7 @@
     "deploy/**"
   ],
   "dependencies": {
+    "@delegatable/delegatable-sol": "^0.0.0-beta.2",
     "@foundry-rs/hardhat": "^0.1.6",
     "@foundry-rs/hardhat-anvil": "^0.1.5",
     "@foundry-rs/hardhat-forge": "^0.1.7",
