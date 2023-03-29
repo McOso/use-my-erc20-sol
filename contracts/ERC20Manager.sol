@@ -11,13 +11,11 @@ import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
  * @notice Manages the erc20 delegation
  */
 contract ERC20Manager is Delegatable {
-
   /* ===================================================================================== */
   /* Constructor & Modifiers                                                               */
   /* ===================================================================================== */
 
   constructor() Delegatable("ERC20Manager", "1") {}
-
 
   /* ===================================================================================== */
   /* External Functions                                                                    */
@@ -30,7 +28,11 @@ contract ERC20Manager is Delegatable {
   // ========================
   // WRITES
   // ========================
-  function transferProxy(address _token, address _from, uint256 _amount) external returns (bool) {
+  function transferProxy(
+    address _token,
+    address _from,
+    uint256 _amount
+  ) external returns (bool) {
     require(_msgSender() == _from, "ERC20Manager:transferProxy-not-authorized");
     return IERC20(_token).transfer(_from, _amount);
   }
@@ -38,13 +40,7 @@ contract ERC20Manager is Delegatable {
   /* ===================================================================================== */
   /* Internal Functions                                                                    */
   /* ===================================================================================== */
-  function _msgSender()
-    internal
-    view
-    virtual
-    override(DelegatableCore)
-    returns (address sender)
-  {
+  function _msgSender() internal view virtual override(DelegatableCore) returns (address sender) {
     if (msg.sender == address(this)) {
       bytes memory array = msg.data;
       uint256 index = msg.data.length;
