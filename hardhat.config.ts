@@ -27,7 +27,10 @@ const config: HardhatUserConfig = {
     target: 'ethers-v5',
   },
   dependencyCompiler: {
-    paths: [],
+    paths: [
+      '@delegatable/delegatable-sol/contracts/enforcers/TimestampAfterEnforcer.sol',
+      '@delegatable/delegatable-sol/contracts/enforcers/TimestampBeforeEnforcer.sol',
+    ],
   },
   etherscan: {
     apiKey: process.env.ETHERSCAN_API_KEY,
