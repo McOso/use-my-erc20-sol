@@ -101,12 +101,8 @@ describe('ERC20Manager', () => {
     erc20FromAllowanceEnforcerFactory = await ethers.getContractFactory(
       'ERC20FromAllowanceEnforcer',
     );
-    timestampBeforeEnforcerFactory = await ethers.getContractFactory(
-      'TimestampBeforeEnforcer',
-    );
-    timestampAfterEnforcerFactory = await ethers.getContractFactory(
-      'TimestampAfterEnforcer',
-    );
+    timestampBeforeEnforcerFactory = await ethers.getContractFactory('TimestampBeforeEnforcer');
+    timestampAfterEnforcerFactory = await ethers.getContractFactory('TimestampAfterEnforcer');
     pk0 = wallet0._signingKey().privateKey;
     pk1 = wallet1._signingKey().privateKey;
   });
@@ -366,7 +362,10 @@ describe('ERC20Manager', () => {
     );
 
     const inputTerms = ethers.utils.hexZeroPad(ethers.utils.parseEther('0.5').toHexString(), 32);
-    const inputTerms_Timestamp = ethers.utils.hexZeroPad(ethers.utils.hexValue(CURRENT_TIME + 1000), 8);
+    const inputTerms_Timestamp = ethers.utils.hexZeroPad(
+      ethers.utils.hexValue(CURRENT_TIME + 1000),
+      8,
+    );
 
     const _delegation = generateDelegation(
       CONTRACT_NAME,
@@ -452,7 +451,10 @@ describe('ERC20Manager', () => {
     );
 
     const inputTerms = ethers.utils.hexZeroPad(ethers.utils.parseEther('0.5').toHexString(), 32);
-    const inputTerms_Timestamp = ethers.utils.hexZeroPad(ethers.utils.hexValue(CURRENT_TIME - 1000), 8);
+    const inputTerms_Timestamp = ethers.utils.hexZeroPad(
+      ethers.utils.hexValue(CURRENT_TIME - 1000),
+      8,
+    );
 
     const _delegation = generateDelegation(
       CONTRACT_NAME,
@@ -539,7 +541,10 @@ describe('ERC20Manager', () => {
     );
 
     const inputTerms = ethers.utils.hexZeroPad(ethers.utils.parseEther('0.5').toHexString(), 32);
-    const inputTerms_Timestamp = ethers.utils.hexZeroPad(ethers.utils.hexValue(CURRENT_TIME - 1000), 8);
+    const inputTerms_Timestamp = ethers.utils.hexZeroPad(
+      ethers.utils.hexValue(CURRENT_TIME - 1000),
+      8,
+    );
 
     const _delegation = generateDelegation(
       CONTRACT_NAME,
@@ -625,7 +630,10 @@ describe('ERC20Manager', () => {
     );
 
     const inputTerms = ethers.utils.hexZeroPad(ethers.utils.parseEther('0.5').toHexString(), 32);
-    const inputTerms_Timestamp = ethers.utils.hexZeroPad(ethers.utils.hexValue(CURRENT_TIME + 1000), 8);
+    const inputTerms_Timestamp = ethers.utils.hexZeroPad(
+      ethers.utils.hexValue(CURRENT_TIME + 1000),
+      8,
+    );
 
     const _delegation = generateDelegation(
       CONTRACT_NAME,
@@ -712,8 +720,14 @@ describe('ERC20Manager', () => {
     );
 
     const inputTerms = ethers.utils.hexZeroPad(ethers.utils.parseEther('0.5').toHexString(), 32);
-    const inputTerms_TimestampBefore = ethers.utils.hexZeroPad(ethers.utils.hexValue(CURRENT_TIME + 1000), 8);
-    const inputTerms_TimestampAfter = ethers.utils.hexZeroPad(ethers.utils.hexValue(CURRENT_TIME - 1000), 8);
+    const inputTerms_TimestampBefore = ethers.utils.hexZeroPad(
+      ethers.utils.hexValue(CURRENT_TIME + 1000),
+      8,
+    );
+    const inputTerms_TimestampAfter = ethers.utils.hexZeroPad(
+      ethers.utils.hexValue(CURRENT_TIME - 1000),
+      8,
+    );
 
     const _delegation = generateDelegation(
       CONTRACT_NAME,
@@ -803,8 +817,14 @@ describe('ERC20Manager', () => {
     );
 
     const inputTerms = ethers.utils.hexZeroPad(ethers.utils.parseEther('0.5').toHexString(), 32);
-    const inputTerms_TimestampBefore = ethers.utils.hexZeroPad(ethers.utils.hexValue(CURRENT_TIME + 1000), 8);
-    const inputTerms_TimestampAfter = ethers.utils.hexZeroPad(ethers.utils.hexValue(CURRENT_TIME - 1000), 8);
+    const inputTerms_TimestampBefore = ethers.utils.hexZeroPad(
+      ethers.utils.hexValue(CURRENT_TIME + 1000),
+      8,
+    );
+    const inputTerms_TimestampAfter = ethers.utils.hexZeroPad(
+      ethers.utils.hexValue(CURRENT_TIME - 1000),
+      8,
+    );
 
     const _delegation = generateDelegation(
       CONTRACT_NAME,
