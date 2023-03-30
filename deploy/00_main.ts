@@ -5,8 +5,33 @@ export default async function deploy(hardhat: HardhatRuntimeEnvironment) {
 
   const { deploy } = deployments;
   const { deployer } = await getNamedAccounts();
+
   await deploy("ERC20Manager", {
     contract: "ERC20Manager",
+    from: deployer,
+    args: [],
+    skipIfAlreadyDeployed: false,
+    log: true,
+  });
+
+  await deploy("ERC20FromAllowanceEnforcer", {
+    contract: "ERC20FromAllowanceEnforcer",
+    from: deployer,
+    args: [],
+    skipIfAlreadyDeployed: false,
+    log: true,
+  });
+
+  await deploy("TimestampBeforeEnforcer", {
+    contract: "TimestampBeforeEnforcer",
+    from: deployer,
+    args: [],
+    skipIfAlreadyDeployed: false,
+    log: true,
+  });
+
+  await deploy("TimestampAfterEnforcer", {
+    contract: "TimestampAfterEnforcer",
     from: deployer,
     args: [],
     skipIfAlreadyDeployed: false,
