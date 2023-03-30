@@ -21,6 +21,7 @@
     "deploy:polygon:testnet": "hardhat deploy --write true --network polygonTestnet",
     "deploy:optimism:mainnet": "hardhat deploy --write true --network optimismMainnet",
     "deploy:optimism:testnet": "hardhat deploy --write true --network optimismTestnet",
+    "deploy:base:testnet": "hardhat deploy --write true --network baseTestnet",
     "verify": "hardhat etherscan-verify --license MIT --solc-input --network",
     "format": "prettier --config .prettierrc --write \"**/*.{ts,js}\" \"contracts/**/*.sol\"",
     "hint": "solhint \"contracts/**/*.sol\"",

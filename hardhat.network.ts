@@ -19,6 +19,10 @@ const POLYGON_TESTNET_RPC_URL = process.env.POLYGON_TESTNET_RPC_URL;
 const OPTIMISM_MAINNET_RPC_URL = process.env.OPTIMISM_MAINNET_RPC_URL;
 const OPTIMISM_TESTNET_RPC_URL = process.env.OPTIMISM_TESTNET_RPC_URL;
 
+// 🔵 Base
+const BASE_MAINNET_RPC_URL = process.env.BASE_MAINNET_RPC_URL;
+const BASE_TESTNET_RPC_URL = process.env.BASE_TESTNET_RPC_URL;
+
 // ⛓️ Forking
 const ARCHIVE_NODE_RPC_URL = process.env.ARCHIVE_NODE_RPC_URL;
 const FORK_ENABLED = process.env.FORK_ENABLED;
@@ -120,6 +124,20 @@ if (TESTNET_PK_DEPLOYER && POLYGON_TESTNET_RPC_URL) {
   networks.polygonTestnet = {
     url: POLYGON_TESTNET_RPC_URL,
     chainId: 80001,
+    accounts: [TESTNET_PK_DEPLOYER],
+  };
+}
+
+/**
+ * Base
+ * @mainnet: 
+ * @testnet: 84531
+ */
+
+if (TESTNET_PK_DEPLOYER && BASE_TESTNET_RPC_URL) {
+  networks.baseTestnet = {
+    url: BASE_TESTNET_RPC_URL,
+    chainId: 84531,
     accounts: [TESTNET_PK_DEPLOYER],
   };
 }
